@@ -1,0 +1,629 @@
+<!doctype html>
+
+<!--
+Alex Behannon
+08/16/2012
+Project 3
+-->
+
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>The Inventory</title>
+        
+        <!-- meta info -->
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="cleartype" content="on">
+
+        <!-- css and stylesheets -->
+        <link rel="stylesheet" href="css/Survivinator.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile.structure-1.1.0.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+
+        <!-- modernizr -->
+        <script src="js/modernizr.custom.min.js"></script>
+
+    </head>
+    <body>
+        
+    <!-- Home Page -->
+        <div data-role="page" id="home" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+                
+            </div>
+            
+            <div data-role="content">
+
+                <center>
+                <p>
+                    <a href="#addItem" id="addNew"><img src="imgs/CTA.png" class="imgSize">
+                    </a>
+                </p>
+                </center>
+                
+                <div>
+		    <a href="#news" data-role="button" class="secondaryColor" >News & Updates</a>
+		</div>
+                
+                <div>
+		    <a href="#browse" data-role="button" class="secondaryColor" >Browse Items</a>
+		</div>
+
+           </div>
+            
+            <div data-role="footer" data-position="fixed">
+
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <!-- Form Page -->
+        <div data-role="page" id="addItem" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Add New Items</h3>
+		
+		<div class="ui-grid-a">
+		    <center>
+			<div class="ui-block-a">
+			    <a href = "#" data-role="button" id="displayData">Show Items</a>    
+			</div>
+			<div class="ui-block-b">
+			    <a href = "#" data-role="button" id="clearData">Clear Inventory</a>    
+			</div>
+		    </center>
+		</div>
+		
+		<a href="#addItem" data-role="button" id="addNewLink" style="display: none;" >Add New Items</a>
+		
+                <p>Fields marked with * are required information.</p>
+
+                <form action="" id="registerItemForm">
+                    
+                        <label for="ownerName">*Owner Name:</label>
+                        <input type="text" name="ownerName" id="ownerName" placeholder="Please type the owner name here." class="required" />
+                        <label for="ownerLocation">Owner Location:</label>
+                        <input type="text" name="ownerLocation" id="ownerLocation" placeholder="Please type the owner location here." />
+                        <label for="itemName">*Item Name:</label>
+                        <input type="text" name="itemName" id="itemName" placeholder="Please type the item name here." class="required" />
+
+                    <div data-role="fieldcontain">
+                        <label for="itemCategory">*Item Category:</label>
+                        <select name="itemCategory" id="itemCategory" data-native-menu="false" class="required" >
+                            <option data-placeholder="true" value>Please select an item type.</option>
+                            <optgroup label="Weapons">
+                                <option value="Melee">Melee</option>
+                                <option value="Ranged">Ranged</option>
+                            </optgroup>
+                            <optgroup label="Tools">
+                                <option value="Survival">Survival</option>
+                                <option value="Personal">Personal</option>
+                            </optgroup>
+                            <optgroup label="Food & Drink">
+                                <option value="Canned">Canned</option>
+                                <option value="Carbonated">Carbonated</option>
+                                <option value="Fruit">Fruit</option>
+                                <option value="Juice">Juice</option>
+				<option value="Junk">Junk</option>
+                            </optgroup>
+                            <optgroup label="Other">
+                                <option value="Other">Other</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                        <fieldset data-role="controlgroup">
+                            <legend>Is the item perishable?</legend>
+                            <input type="radio" value="Yes" name="perish" id="Yes" />
+                            <label for="Yes">Yes</label>
+                            <input type="radio" value="No" name="perish" id="No" />
+                            <label for="No">No</label>
+                            <input type="radio" value="Unsure" name="perish" id="Unsure" checked/>
+                            <label for="Unsure">Unsure</label>
+                        </fieldset>
+
+                        <fieldset data-role="controlgroup">
+                            <legend>Is this item a favorite?</legend>
+                            <input type="checkbox" value="Yes" name="favorite" id="favorite" />
+                            <label for="favorite">Favorite</label>
+                        </fieldset>
+
+                        <label for="itemAmount">Item Amount:</label>
+                        <input type="range" name="itemAmount" id="itemAmount" value="1" min="1" max="50" />
+
+                        <label for="extraInfo">Any additional information?</label>
+                        <textarea name="extraInfo" id="extraInfo" placeholder="Please put any additional notes here."></textarea>
+
+                        <input type="submit" id="saveData" value="Register Item" data-theme="b" />
+                        <input type="reset" id="resetForm" value="Reset Form" data-theme="a" />
+
+                </form>
+		
+		<div id="itemList" data-role="fieldcontain"></div> 
+		    
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Main Browse Page -->
+        <div data-role="page" id="browse" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Browse Data</h3>
+                
+		<div>
+		  <a href="#itemView" data-role="button" class="secondaryColor" >Test Data Types (PROJECT 2)</a>
+		</div>
+		    
+		<div>
+		    <a href="#catBrowse" data-role="button" class="secondaryColor" >Browse by Category (PROJECT 3)</a>
+		</div>
+		
+            </div>
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+	
+    <!-- Week 2 Data Test Page -->
+        <div data-role="page" id="itemView" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Browse Data</h3>
+                
+		<div>
+		  <a href="#" id="jsonButton" data-role="button" class="secondaryColor" >JSON Test</a>
+		</div>
+		<div>
+		  <a href="#" id="xmlButton" data-role="button" class="secondaryColor" >XML Test</a>
+		</div>
+    		<div>
+		  <a href="#" id="csvButton" data-role="button" class="secondaryColor" >CSV Test</a>
+		</div>
+		
+		<div id="itemDataLoad">
+		</div>
+		
+            </div>
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+	
+    <!-- Category Browse Page -->
+        <div data-role="page" id="catBrowse" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+
+                <h3>Browse by Category</h3>
+                
+		<div data-role="listview" class="ui-grid-b" data-inset="false" data-filter="true">
+		    <div class="ui-block-a"><a href="#browseFoodDrink" data-filter="fooddrink" id="FoodDrink"><img src="imgs/Juice.png" border="0" width="50" height="50" alt="Browse Food & Drink" data-role="button"><small>Food / Drink</small></a></div>
+		    <div class="ui-block-b""><a href="#browseTools" data-filter="tools" id="Tools"><img src="imgs/Survival.png" border="0" width="50" height="50" alt="Browse Tools" data-role="button"><small>Tools</small></a></div>
+		    <div class="ui-block-a"><a href="#browseWeapons" data-filter="weapons" id="Weapons"><img src="imgs/Melee.png" border="0" width="50" height="50" alt="Browse Weapons" data-role="button"><small>Weapons</small></a></div>
+		    <div class="ui-block-b"><a href="#browseOther" data-filter="other" id="Other"><img src="imgs/Other.png" border="0" width="50" height="50" alt="Browse Other" data-role="button"><small>Other</small></a></div>
+		</div>
+
+            </div>
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Browse Food & Drink-->>
+        <div data-role="page" id="browseFoodDrink" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Food & Drink</h3>
+		<div id="FoodDrinkList">
+		</div>
+
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Browse Tools Page-->
+        <div data-role="page" id="browseTools" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Tools</h3>
+		<div id="ToolsList">
+		</div>
+
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Browse Weapons Page-->
+        <div data-role="page" id="browseWeapons" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Weapons</h3>
+		<div id="WeaponList">
+		</div>
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Browse Other Page-->
+        <div data-role="page" id="browseOther" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+
+                <h3>Other</h3>
+		<div id="OthersList">
+		</div>
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+	
+    <!-- Under Consrtuction Page-->
+        <div data-role="page" id="underConstruction" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+                <center>
+                    <p><h3>Our Apologies!</h3></p>
+                </center>
+                <img src="imgs/UC.png" class="imgSize"/>
+                <center>
+                    <p>Check back soon!</p>
+                </center>
+
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        
+    <!-- Links Page -->
+        <div data-role="page" id="links" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+
+            <div data-role="content">
+                
+                <ul data-role="listview">
+                    <li>
+                        <h4>Links</h4>
+                        <p>Please use the links below to view the related Github pages..</p>
+                    </li>
+                </ul>
+                
+		<a href="https://github.com/Atomicpanda/ASDP3/tree/master/" data-role="button">Master Github Code</a>
+		<a href="http://atomicpanda.github.com/ASDP3/index.html" data-role="button">Live Github Page</a>
+		<a href="http://abehannon.cloudant.com/asdcouch/_design/app/index.html" data-role="button">Cloudant Page</a>
+		
+            </div>
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add Items</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse Items</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- News Page-->
+        <div data-role="page" id="news" data-add-back-btn="true" data-theme="a">
+
+            <div data-role="header" data-position="fixed">
+
+                <center>
+                        <a href="#home"><img src="imgs/logo.png" width="200px" height="34px"></a>
+                </center>
+
+            </div>
+            
+            <div data-role="content">
+                
+		<ul data-role="listview" data-filter="true">
+		    <li>
+			<a href="#underConstruction">
+			    <img src="imgs/lets/exclaim.png"/>
+			    <h3>Update 0.3</h3>
+			    <small>Site Changes</small>
+			    <p><br />7/12/2012 12:32pm</p>
+			</a>
+		    </li>
+		    <li>
+			<a href="#underConstruction">
+			    <img src="imgs/lets/exclaim.png"/>
+			    <h4>Update 0.2</h4>
+			    <small>Site Changes</small>
+			    <p><br />7/12/2012 9:53am</p>
+			</a>
+		    </li>
+		    <li>
+			<a href="#underConstruction">
+			    <img src="imgs/lets/exclaim.png"/>
+			    <h4>Update 0.1</h4>
+			    <small>Site Changes</small>
+			    <p><br />7/12/2012 8:32am</p>
+			</a>
+		    </li> 
+		</ul>
+		
+	    </div>
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-icon-pos="left">
+                    <ul>
+                        <li>
+                            <a href="#addItem" rel="external" data-ajax="false" data-inline="true" data-icon="plus" data-add-back-btn="true">Add</a>
+                        </li>
+                        <li>
+                            <a href="#browse" rel="external" data-ajax="false" data-inline="true" data-icon="grid" data-add-back-btn="true">Browse</a>
+                        </li>
+                        <li>
+                            <a href="#links" rel="internal" data-ajax="true" data-inline="true" data-icon="info" data-add-back-btn="true">Links</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Javascript stuff -->
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/grabber.js"></script>
+        <script type="text/javascript" src="js/json.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/couch.js"></script>
+        
+    </body>
+    
+</html>
